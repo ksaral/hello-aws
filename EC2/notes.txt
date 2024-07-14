@@ -1,0 +1,4 @@
+Copy war from local machine to ec2 machine.
+Command: scp -i /path/to /your/.pemkey -r /copy/from/path user@server:/copy/to/path
+Example: scp -i "C:/Users/saral/Downloads/dockerpem.pem" "E:/demo/MyRestApp/target/MyRestApp.war" ec2-user@ec2-43-205-239-166.ap-south-1.compute.amazonaws.com:/home/ec2-user
+
