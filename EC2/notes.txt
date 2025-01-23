@@ -2,3 +2,23 @@ Copy war from local machine to ec2 machine.
 Command: scp -i /path/to /your/.pemkey -r /copy/from/path user@server:/copy/to/path
 Example: scp -i "C:/Users/saral/Downloads/dockerpem.pem" "E:/demo/MyRestApp/target/MyRestApp.war" ec2-user@ec2-43-205-239-166.ap-south-1.compute.amazonaws.com:/home/ec2-user
 
+# User Data Script Sample to install docker and start a container.
+#!/bin/bash
+# Use this for your user data (script from top to bottom)
+cd /home/ec2-user/
+yum update -y
+yum install -y docker
+service docker start
+docker build -t mytomcatimage:latest --build-arg host_name_arg=$(hostname -f) .
+docker run -td --name devserver -p 80:8080 mytomcatimage:latest
+
+# User Data Script Sample to install docker image from AWS ECR and start a container.
+#!/bin/bash
+# Use this for your user data (script from top to bottom)
+cd /home/ec2-user/
+yum update -y
+yum install -y docker
+service docker start
+# Also this time, we are going to set environment variable while starting the container.
+aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/j2p2l7e6
+docker run -td --name devserver --env MY_HOST_NAME=$(hostname -f) -p 80:8080 public.ecr.aws/j2p2l7e6/hello-aws:mytomcatimage
