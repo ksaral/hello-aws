@@ -5,3 +5,9 @@ docker build -t dev/learner-sk .
 docker tag dev/learner-sk:latest public.ecr.aws/j2p2l7e6/dev/learner-sk:latest
 
 docker push public.ecr.aws/j2p2l7e6/dev/learner-sk:latest
+
+## Pull the image available in ECR for the springboot rest app
+aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/j2p2l7e6
+
+docker run -it --name devserver public.ecr.aws/j2p2l7e6/hello-aws:mytomcatimage /bin/bash
+
