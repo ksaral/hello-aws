@@ -7,7 +7,8 @@ docker tag dev/learner-sk:latest public.ecr.aws/j2p2l7e6/dev/learner-sk:latest
 docker push public.ecr.aws/j2p2l7e6/dev/learner-sk:latest
 
 ## Pull the image available in ECR for the springboot rest app
-aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/j2p2l7e6
+aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <your-aws-account-id>.dkr.ecr.<region>.amazonaws.com
+
 
 ## We will start a new container in detached mode and map port 80 of host with 8080 of container.
 docker run -p80:8080 -d --name devserver public.ecr.aws/j2p2l7e6/hello-aws:mytomcatimage
