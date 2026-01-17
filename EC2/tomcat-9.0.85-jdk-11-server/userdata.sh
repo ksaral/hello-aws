@@ -8,9 +8,6 @@ exec > >(tee -a ${LOGFILE}) 2>&1
 
 echo "===== Starting Tomcat setup at $(date) ====="
 
-echo "Updating system packages..."
-yum update -y
-
 echo "Installing Java 11 Amazon Corretto..."
 yum install java-11-amazon-corretto -y
 
